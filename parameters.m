@@ -1,0 +1,9 @@
+ticks_per_minute = 5;
+xdim = 20;
+ydim = 150;
+density = ones(xdim,ydim);
+A = repmat((1:xdim)',1,ydim);
+B = repmat(1:ydim,xdim,1);
+center_x = floor(mean(mean(density.*B))); % compute center of mass
+center_y = floor(mean(mean(density.*A)));
+p = 0.3;
