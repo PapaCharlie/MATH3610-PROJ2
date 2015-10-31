@@ -1,5 +1,9 @@
 ticks_per_minute = 5;
 
+speed = 5;
+
+fuel_range = ticks_per_minute * 60 * 5 * speed; % in blocks
+
 sight_radius = 1;
 xdim = ceil(20 / sight_radius);
 ydim = ceil(150 / sight_radius);
