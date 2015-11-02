@@ -1,31 +1,44 @@
-function [minreq, min_i, min_j, rt] = thing(m, n, t)
-    minreq = m * n;
-    min_i = 0;
-    min_j = 0;
-    rt = -1;
-
-    for i=2:m
-        if mod(m, i) ~= 0
-            continue
-        end
-        for j=2:n
-            if mod(n, j) ~= 0
-                continue
+function [minreq, min_i, min_j] = thing(m, n, t)
+    if (m <= 0 || n <= 0)
+        minreq = 0;
+        rt = 0;
+    elseif (m == 1 || n == 1)
+        minreq = 2 * max(m,n);
+    elseif (m == 2 || n == 2)
+        minreq = m*n;
+    else
+        minreq = m*n;
+        a = zeros(m,n);
+        for i=1:m
+            if (2*(i-1) > t)
+                a(i,1) = m*n;
+            else
+                a(i,1) = floor(m/i)*n;
             end
-            if (m/i * n/j < minreq)
-                r = one_drone_time(i, j);
-                if (r < t)
-                    minreq = m/i * n/j;
+        end
+        for j=1:n
+            if (2*(j-1) > t)
+                a(1,j) = m*n;
+            else
+                a(1,j) = m*floor(n/j);
+            end
+        end
+        for i=2:m
+            for j=2:n
+                x = mod(m,i);
+                y = mod(n,j);
+                r = one_drone_time(i,j);
+                if (r > t)
+                    a(i,j) = m*n;
+                else
+                    a(i,j) = floor(m/i)*floor(n/j) + min(thing(i,y,t)+thing(x-i,j,t),thing(i,y-j,t)+thing(x,j,t));
+                end
+                if (a(i,j) < minreq)
+                    minreq = a(i,j);
                     min_i = i;
                     min_j = j;
-                    rt = r;
                 end
             end
         end
     end
-
-    minreq
-    min_i
-    min_j
-    rt
 end
