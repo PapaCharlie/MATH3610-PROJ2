@@ -11,6 +11,7 @@ global B;
 global center_x;
 global center_y;
 global p;
+global manhattan_area;
 
 ticks_per_minute = 5;
 
@@ -29,3 +30,4 @@ B = repmat(1:ydim,xdim,1);
 center_x = floor(mean(mean(visit_interval.*B))); % compute center of mass
 center_y = floor(mean(mean(visit_interval.*A)));
 p = 0.3;
+manhattan_area = xdim * ydim;
