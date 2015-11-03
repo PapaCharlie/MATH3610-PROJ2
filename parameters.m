@@ -28,7 +28,7 @@ visit_interval(:,:) = 15;
 % Set Central Park
 visit_interval(10:19, 59:110) = 20;
 % Set Gotham University
-visit_interval(1:6, 110:120) = 5;
+visit_interval(1:6, 110:122) = 5;
 % Set Financial District
 visit_interval(:, 1:20) = 5;
 visit_interval = visit_interval * ticks_per_minute;
