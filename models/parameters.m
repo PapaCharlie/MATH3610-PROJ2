@@ -4,7 +4,6 @@ global fuel_range;
 global refuel_time;
 global xdim;
 global ydim;
-% global visit_interval;
 global A;
 global B;
 global center_x;

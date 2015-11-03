@@ -1,13 +1,16 @@
-parameters;
-
+global tick;
+global last_visited;
+global visit_interval;
 
 total_ticks = 500;
 iterations = 5;
 max_mavs = 75;
 
-global tick;
-global last_visited;
-global visit_interval;
+ticks_per_minute = 5;
+speed = 10/ticks_per_minute;
+xdim = 20;
+ydim = 250;
+manhattan_area = xdim * ydim;
 
 visit_interval = ones(xdim,ydim) * 15 * ticks_per_minute;
 visit_interval = padarray(visit_interval, [1 1], NaN);
@@ -24,7 +27,7 @@ for num_mavs = 1:max_mavs
     for n = 1:num_mavs
       x = ceil(rand * (xdim - 1) + 1);
       y = ceil(rand * (ydim - 1) + 1);
-      mavs{n} = MAV_random([x y]);
+      mavs{n} = MAV([x y]);
     end
 
     while tick ~= total_ticks
@@ -63,7 +66,7 @@ for num_mavs = 1:max_mavs
     for n = 1:num_mavs
       x = ceil(rand * (xdim - 1) + 1);
       y = ceil(rand * (ydim - 1) + 1);
-      mavs{n} = MAV_random([x y]);
+      mavs{n} = MAV([x y]);
     end
 
     while tick ~= total_ticks

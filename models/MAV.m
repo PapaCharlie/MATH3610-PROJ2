@@ -1,14 +1,10 @@
-classdef MAV_random < handle
+classdef MAV < handle
   properties
-    fuel_range
     position
-    last_direction = 0
   end
 
   methods
-    function self = MAV_random(position)
-      global fuel_range;
-      self.fuel_range = fuel_range;
+    function self = MAV(position)
       self.position = position;
     end
 
@@ -18,7 +14,6 @@ classdef MAV_random < handle
       global last_visited;
       global visit_interval;
       for t = 1:speed
-        self.fuel_range = self.fuel_range - 1;
         neighbors = [ -1 0; 0 1; 1 0; 0 -1 ];
         neighbors(:, 1) = neighbors(:,1) + self.position(1);
         neighbors(:, 2) = neighbors(:, 2) + self.position(2);
