@@ -4,7 +4,7 @@ global visit_interval;
 global speed;
 
 minutes = 5 * 60;
-num_iterations = 1;
+num_iterations = 10;
 max_mavs = 75;
 
 xdim = 30;

@@ -1,17 +1,17 @@
 \documentclass{article}
 % \usepackage[margin=2.5cm]{geometry}
-\usepackage[margin=2cm, headheight=0pt, headsep=1cm]{geometry}
+\usepackage[margin=2.5cm, headheight=0pt, headsep=1cm]{geometry}
 \usepackage{enumerate, fancyhdr, graphicx, amsmath, nth}
 \usepackage[binary-units=true]{siunitx}
 
-\title{Big Brother is watching}
-\author{Paul Chesnais (pmc85), Nimit Sohoni(nss66) and Matthew Siebert (mrs345)}
+\title{Big Brother Is Watching}
+\author{Paul Chesnais (pmc85), Nimit Sohoni (nss66) and Matthew Siebert (mrs345)}
 \date{\today}
 
 \pagestyle{fancy}
 \fancyhead{}
-\lhead{Paul Chesnais (pmc85)}
-\chead{Project 2}
+\lhead{pmc85, nss66 and mrs345}
+\chead{Big Brother}
 \rhead{\today}
 \fancyfoot{}
 \rfoot{\thepage}
@@ -60,6 +60,10 @@ Next, we also justify our representation of time. Instead of modeling it as a co
 \label{par:drone_speed}
 Recent legislation has limited the speed of drones at \SI{100}\mph \cite{dronespeed}. Having drones zipping around Manhattan at \SI{100}\mph seems not only dangerous, it seems that they would not be able to gather very meaningful data. As such, for the purposes of this simulation, we made our drones relatively slow and limited the to a speed of 10 blocks per minute.
 
+\paragraph{Drone Sight}
+\label{par:drone_sight}
+For this particular fictional reality, we assume that drones need to take pictures of the jaywalkers' faces in order to flag them. As such, we assume in a drone can only see jaywalkers in the intersection it is currently hovering over. This means that a drone needs to physically fly over a particular intersection for it to be counted as ``visited''.
+
 \section{Simplifications}
 There are two simplifications that we reserved the right to make when designing our strategies. They make the solutions more elegant and easier to compute, while not preventing us from then generalizing our optimal solutions back to the original problem.
 \paragraph{Flight and Recharge Time}
@@ -78,8 +82,21 @@ Another consideration for this summation may be that the drones can only be laun
 \label{sec:block_model}
 
 % Paul's stuff n' things
-\section{Greedy Random Walk Model}
+\section{Greedy Random Walk}
 \label{sec:greedy_random_walk_model}
+Since some fellow jaywalkers don't want us to have an advantage when walking the in the streets of Manhattan, we also need a strategy that is a little more unpredictable. Part of the problem with the strategies outlined above is that knowing the location of a single drone lets someone with inside knowledge about the strategy infer the location of every other drone, or at least the location of neighboring drones. One response to this complaint would be to make the drones travel a more random path. The following strategy does just that, and works even when areas of Manhattan have different densities of jaywalkers.
+
+\subsection{Global State}
+\label{sub:global_state}
+One of the requirements of this strategy is that a global state accessible by all drones is required. It seems reasonable to assume that cellphone networks still exist in 2084, and therefore that all of our drones are connected to the Internet. Two pieces of information need to be kept about each node in the grid: the time at which the node was last visited, and the required frequency at which it needs to be watched.
+
+\subsection{Greedy walk}
+\label{sub:greedy_walk}
+As mentioned above, drones have access to the timestamp of the last visit for a given intersection, and the amount of time that can pass before said intersection needs to be watched again. As such, the ``urgency'', or how soon a given node must be visited, can be inferred.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
 
 \section{Appendix}
 \label{sec:appendix}
