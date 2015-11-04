@@ -10,7 +10,7 @@ classdef MAV < handle
 
     function step(self)
       global speed;
-      global tick;
+      global minute;
       global last_visited;
       global visit_interval;
       for t = 1:speed
@@ -19,12 +19,17 @@ classdef MAV < handle
         neighbors(:, 2) = neighbors(:, 2) + self.position(2);
         urgency = zeros(1,4);
         for n = 1:4
-          urgency(n) = visit_interval(neighbors(n, 1), neighbors(n, 2)) - (tick - last_visited(neighbors(n, 1), neighbors(n, 2)));
+          urgency(n) = visit_interval(neighbors(n, 1), neighbors(n, 2)) - (minute - last_visited(neighbors(n, 1), neighbors(n, 2)));
         end
-        m = min(urgency);
-        direction = datasample(find(urgency == m), 1);
-        self.position = neighbors(direction, :);
-        last_visited(self.position(1), self.position(2)) = tick;
+        [m, m_index] = min(urgency);
+        if numel(find(urgency == m)) > 1
+          direction = datasample(find(urgency == m), 1);
+          self.position = neighbors(direction, :);
+          last_visited(self.position(1), self.position(2)) = minute;
+        else
+          self.position = neighbors(m_index, :);
+          last_visited(self.position(1), self.position(2)) = minute;
+        end
       end
     end
   end
