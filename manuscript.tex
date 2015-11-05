@@ -108,6 +108,12 @@ Total MAVs = Deployed + Backup Fuel + Backup Repair \label{totaldrones}
 % Nimit's stuff and things
 \section{Block Model}
 \label{sec:block_model}
+The block model assumes that an approximation to the optimal number of drones can be achieved by splitting up Manhattan into rectangular blocks, each of which is assigned a drone to cover that area. The rectangles must therefore be small enough so that the drones can cover them in 15 minutes. Our algorithm iterates through all pairs of rectangle dimensions that are small enough for a single drone to cover in 15 minutes, and tiles Manhattan with these rectangles. If the dimension of Manhattan is not divisible by the rectangle dimension, we take the "leftover" area that is not covered by any rectangle and pass that area back into a recursive call to the algorithm (it may be tiled with different-sized rectangles). Finally, we select the tiling arrangement that covers Manhattan with the least number of blocks, and therefore the fewest drones.
+
+There is. If the is divisible
+
+For example, when we model Manhattan as a 30 by 250 grid, and if we assume that each drone can survey one grid point per minute, then the algorithm tells us that the "main" tiling will be 7 by 2 blocks. So, a contiguous 28 by 250 area (without loss of generality, we can assume it is in the upper left corner) will be covered with a 4 by 125 tiling of rectangular blocks. Then, there is a 2 by 250 area remaining. This area will be tiled with 35 2 by 7 blocks. Finally, there will be a 2 by 5 block left over. This block is small enough for one drone to survey in one minute. Therefore, the total number of blocks is $4*125 + 35 + 1 = 500 + 36 = 536$ blocks, and so 536 drones.
+
 
 % Paul's stuff n' things
 \section{Greedy Random Walk}
