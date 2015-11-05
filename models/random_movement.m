@@ -5,7 +5,7 @@ global speed;
 
 minutes = 5 * 60;
 num_iterations = 10;
-max_mavs = 75;
+max_mavs = 100;
 
 xdim = 30;
 ydim = 250;

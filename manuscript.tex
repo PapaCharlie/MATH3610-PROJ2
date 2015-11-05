@@ -68,7 +68,7 @@ For this particular fictional reality, we assume that drones need to take pictur
 There are two simplifications that we reserved the right to make when designing our strategies. They make the solutions more elegant and easier to compute, while not preventing us from then generalizing our optimal solutions back to the original problem.
 \paragraph{Flight and Recharge Time}
 \label{par:flight_and_recharge_time}
-One parameter that was made unclear is once drones run out of fuel, how long does it take them to recharge? Suppose we have an optimal solution that requires exactly $n$ drones. If it takes a drone exactly 5 hours to recharge, and we need to keep $n$ drones in the air at all times, then we need a minimum of $2n$ drones to guarantee our ability to do so. Similarly, if the time to recharge is 1 hour, then we can interleave the drones' schedules such that one drone goes down every hour, and we only need $n+1$ drones to achieve the optimal solution. There is an inverse relationship between the amount of time it takes to recharge the drones (relative to the amount of time a drone can stay in the air), and the total number of drones needed to achieve a particular solution. As such, we can begin by finding an optimal solution requiring $n$ drones where drones can fly indefinitely, then fine tuning $n$ with regards to the flight and recharge time constraints accordingly.
+One parameter that was made unclear is once drones run out of fuel, how long does it take them to recharge? Suppose we have an optimal solution that requires exactly $n$ drones. If it takes a drone exactly 5 hours to recharge, and we need to keep $n$ drones in the air at all times, then we need a minimum of $2n$ drones to guarantee our ability to do so. Similarly, if the time to recharge is 1 hour, then we can interleave the drones' schedules such that one drone goes down every hour, and we only need $\frac{6}{5}n$ drones to achieve the optimal solution. There is an relationship between the amount of time it takes to recharge the drones (relative to the amount of time a drone can stay in the air), and the total number of drones needed to achieve a particular solution. As such, we can begin by finding an optimal solution requiring $n$ drones where drones can fly indefinitely, then fine tuning $n$ with regards to the flight and recharge time constraints accordingly.
 \paragraph{Charging Stations}
 \label{par:charging_stations}
 Another consideration for this summation may be that the drones can only be launched from a limited number of charging stations. Suppose a strategy involves splitting up Manhattan into quadrants, then assigning drones for each quadrants. If drones can only launch from certain locations within Manhattan, they may take some time to get their respective areas, which may lead to lost observation time. There are two reasons why the following models do not take this into account. First of all, in the grand scheme of the strategy, what matters is what happens in the majority of the time, not the small amount of time it takes for the drone to move to its area, relative the total amount of time the drone is in the air. The other reason is that while the speed of our drones is 10 blocks per minute while watching for jaywalkers, nothing was said about their actual top speed. There is reason to believe that if a \SI{100}\mph speed limit exists, some drones are capable of reaching that speed, and will indeed do so if required while relocating to a new quadrant. Therefore we can assume that drones ``spawn'' in the correct location at the beginning of time.
@@ -133,7 +133,7 @@ As mentioned above, drones have access to the timestamp of the last visit for a 
 
 \subsection{Performance}
 \label{sub:greey_performance}
-This strategy can tackle both density requirements. Figure~\ref{fig:greedy_performance} show the performance of this strategy when the jaywalker density is uniform and when it is not, respectively. The vertical axis represents the mean number of nodes left unwatched for too long per moment in time over 10 simulations, and the horizontal axis represents the number of drones in flight during the simulations. There is a slight difference between Figure~\ref{fig:random_uniform} and Figure~\ref{fig:random_nonuniform} in that when the jaywalker density isn't uniform, more drones are required. This is most likely due to the fact that Gotham University and the Financial District need to be watched so often that any strategy would require more drones.
+This strategy can tackle both density requirements. Figure~\ref{fig:greedy_performance} show the performance of this strategy when the jaywalker density is uniform and when it is not, respectively. The vertical axis represents the mean number of nodes left unwatched for too long per moment in time over 10 simulations, and the horizontal axis represents the number of drones in flight during the simulations. There is a slight difference between Figure~\ref{fig:random_uniform} and Figure~\ref{fig:random_nonuniform} in that when the jaywalker density isn't uniform, more drones are required. This is most likely due to the fact that Gotham University and the Financial District need to be watched so often that any strategy would require more drones. This strategy manages to cover appropriately cover 90\% of Manhattan with 70 drones and 75 drones when the jaywalker density is uniform and nonuniform respectively. One could add arbitrarily many drones with diminishing results.
 
 \begin{figure}[H]
 \center
@@ -146,7 +146,7 @@ This strategy can tackle both density requirements. Figure~\ref{fig:greedy_perfo
 \begin{subfigure}[b]{0.5\textwidth}
   \center
   \includegraphics[width=\textwidth]{figures/random_walk_part3-crop.pdf}
-  \caption{Non-uniform jaywalker density}
+  \caption{Nonuniform jaywalker density}
   \label{fig:random_nonuniform}
 \end{subfigure}
 \caption{Performance of Greedy Random Walk}
@@ -155,7 +155,7 @@ This strategy can tackle both density requirements. Figure~\ref{fig:greedy_perfo
 
 \section{Conclusion}
 \label{sec:conclusion}
-
+In conclusion, it seems that one would need at least 50 drones to optimally cover Manhattan/Gotham City. Unfortunately, those drones have infinite fuel, therefore the true solution needs to be adjusted according to the ratio of the drones' flight time and their recharge time.
 
 \section{Appendix}
 \label{sec:appendix}
