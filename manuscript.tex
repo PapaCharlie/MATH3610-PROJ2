@@ -138,10 +138,33 @@ One of the requirements of this strategy is that a global state accessible by al
 
 \subsection{Greedy walk}
 \label{sub:greedy_walk}
-As mentioned above, drones have access to the timestamp of the last visit for a given intersection, and the amount of time that can pass before said intersection needs to be watched again. As such, the ``urgency'', or how soon a given node must be visited, can be inferred.
+As mentioned above, drones have access to the timestamp of the last visit for a given intersection, and the amount of time that can pass before said intersection needs to be watched again. As such, the ``urgency'' or how soon a given node must be visited, can be inferred. A naive, greedy drone can therefore move to the neighboring node with the highest urgency rating, and choosing randomly between neighbors when some nodes are tied. This means that a drone’s movement is unpredictable, and seeing a drone above one intersection does not let a municipal employee infer the location of the rest of drones.
+
+\subsection{Performance}
+\label{sub:greey_performance}
+This strategy can tackle both density requirements. Figure~\ref{fig:greedy_performance} show the performance of this strategy when the jaywalker density is uniform and when it is not, respectively. The vertical axis represents the mean number of nodes left unwatched for too long per moment in time over 10 simulations, and the horizontal axis represents the number of drones in flight during the simulations. There is a slight difference between Figure~\ref{fig:random_uniform} and Figure~\ref{fig:random_nonuniform} in that when the jaywalker density isn't uniform, more drones are required. This is most likely due to the fact that Gotham University and the Financial District need to be watched so often that any strategy would require more drones. This strategy manages to appropriately cover 90\% of Manhattan with 70 drones and 75 drones when the jaywalker density is uniform and nonuniform respectively, and 97.5\% of Manhattan with 90 and 95 drones respectively. One could keep adding arbitrarily many drones, but with diminishing results.
+
+\begin{figure}[H]
+\center
+\begin{subfigure}[b]{0.5\textwidth}
+  \center
+  \includegraphics[width=\textwidth]{figures/random_walk_part1-crop.pdf}
+  \caption{Uniform jaywalker density}
+  \label{fig:random_uniform}
+\end{subfigure}~
+\begin{subfigure}[b]{0.5\textwidth}
+  \center
+  \includegraphics[width=\textwidth]{figures/random_walk_part3-crop.pdf}
+  \caption{Nonuniform jaywalker density}
+  \label{fig:random_nonuniform}
+\end{subfigure}
+\caption{Performance of Greedy Random Walk}
+\label{fig:greedy_performance}
+\end{figure}
 
 \section{Conclusion}
 \label{sec:conclusion}
+In conclusion, it seems that one would need at least 50 drones to optimally cover Manhattan/Gotham City. Unfortunately, those drones have infinite fuel, therefore the true solution needs to be adjusted according to the ratio of the drones' flight time and their recharge time.
 
 
 \section{Appendix}
