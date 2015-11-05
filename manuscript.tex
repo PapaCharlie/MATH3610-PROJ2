@@ -83,17 +83,17 @@ Another consideration for this summation may be that the drones can only be laun
     \caption{The shape of the path with the minimum number of turns that visits every area of the city.}
     \label{path}
 \end{figure}
-\newline\indent In our case Manhattan is modeled as being $30\times 250$ blocks. The similar path for this layout has 60 turns and a total path length of 7500 blocks ($\sim 250$ miles). If the speed of each drone is 30 mph then each drone can fly 3000 blocks before having to refuel if we do not account for turning penalties. Since we were not given a specific parameter for drone refueling rates, need to create a flexible model that describes the refueling rates effects on the number of drones required. 
+\newline\indent In our case Manhattan is modeled as being $30\times 250$ blocks. The similar path for this layout has 60 turns and a total path length of 7500 blocks ($\sim 250$ miles). If the speed of each drone is 30 mph then each drone can fly 3000 blocks before having to refuel if we do not account for turning penalties. Since we were not given a specific parameter for drone refueling rates, need to create a flexible model that describes the refueling rates effects on the number of drones required.
 \begin{eqnarray}
 N \geq \frac{R n_{c}}{T}\label{backup drones}
-\end{eqnarray} 
-Equation \ref{backup drones} describes the number of extra drones needed ($N$) as a function of the refueling time $R$ ($n_{c}$ and $T$ are the number of currently deployed drones and their fuel capacity in hours respectively). We can see from this equation that if the refueling time equals the length of time for which drones can fly, then $N = n_{c}$.  So we would need a total of $2n_{c}$ drones as expected. 
-This means that in the worst case we need to have an additional supply of available drones equal to the number of operating drones that can be deployed when fuel is depleted. This also assumes that refueling the drones takes less than 5 hours. 
+\end{eqnarray}
+Equation \ref{backup drones} describes the number of extra drones needed ($N$) as a function of the refueling time $R$ ($n_{c}$ and $T$ are the number of currently deployed drones and their fuel capacity in hours respectively). We can see from this equation that if the refueling time equals the length of time for which drones can fly, then $N = n_{c}$.  So we would need a total of $2n_{c}$ drones as expected.
+This means that in the worst case we need to have an additional supply of available drones equal to the number of operating drones that can be deployed when fuel is depleted. This also assumes that refueling the drones takes less than 5 hours.
 \newline\indent If the drones are equally spaced, then the distance between them in blocks is simply $L/n_{c}$ where $L$ is the total path length (7500 blocks). By setting the maximum time interval $t$ to 15 min in Equation \ref{max time interval} we can solve for the minimum number of drones required given that the drones travel at a rate $R = 10$ blocks/minute (30mph). Our representation of the city requires $n_{c} = 50$ for a maximum unobserved interval of 15 minutes.
 \begin{eqnarray}
 t = \frac{L}{n_{c}R} \label{max time interval}
 \end{eqnarray}
-\newline\indent Now we account for the possibility that drones can break down and be grounded for repairs. We analyze the effect of at most 30\% becoming unusable. We assume that if a drone fails then the currently operating drones spread out evenly over the entire path to keep visit intervals at a minimum. Figure \ref{failed} shows the maximum unobserved time interval given drone failings ranging from 0 to 30\%. If 30\% fail then the maximum interval is increased to 21.12 minutes. 
+\newline\indent Now we account for the possibility that drones can break down and be grounded for repairs. We analyze the effect of at most 30\% becoming unusable. We assume that if a drone fails then the currently operating drones spread out evenly over the entire path to keep visit intervals at a minimum. Figure \ref{failed} shows the maximum unobserved time interval given drone failings ranging from 0 to 30\%. If 30\% fail then the maximum interval is increased to 21.12 minutes.
 \begin{figure}[htb!]
     \centering]{{\includegraphics[width=7cm]{figures/failed_drones.pdf} }}%
     \caption{Drone failings effect on maximum visit interval}
@@ -102,7 +102,7 @@ t = \frac{L}{n_{c}R} \label{max time interval}
 If it is extremely important to keep the interval at 15 minutes, then the city will need to keep extra reserve drones to deploy when drones need repair. This number would be equal to $.3n_{c} = 15$ backup drones.
 \begin{eqnarray}
 Total MAVs = Deployed + Backup Fuel + Backup Repair \label{totaldrones}
-\end{eqnarray} 
+\end{eqnarray}
 \indent If this plan is implemented then the total number of drones that the city needs to adequately observe all areas is described by Equation \ref{totaldrones}. The worst case would be if refuel times were long and it was mandatory to keep all visit intervals within 15 min. This would require 50 drones to be deployed at all times, 50 should be readily available to deploy when operating drones run out of fuel, and 15 should be readily available to replace any broken drones. This gives us a total of 115 drones. This solution yields a density of 6.13 drones per square mile. The best case scenario would take the refuel times to be negligible and a more flexible tolerance for maximum visit intervals. This case would not require any backup drones for refueling or failures and the resulting an optimal value of 50 total drones (2.67 drones per square mile). The true solution will therefore lie in the range of 50 - 115 drones and depend on the real constraints of the situation subject to the methods we have developed.
 
 % Nimit's stuff and things
@@ -129,13 +129,13 @@ One of the requirements of this strategy is that a global state accessible by al
 
 \subsection{Greedy walk}
 \label{sub:greedy_walk}
-As mentioned above, drones have access to the timestamp of the last visit for a given intersection, and the amount of time that can pass before said intersection needs to be watched again. As such, the ``urgency'', or how soon a given node must be visited, can be inferred.
+As mentioned above, drones have access to the timestamp of the last visit for a given intersection, and the amount of time that can pass before said intersection needs to be watched again. As such, the ``urgency'' or how soon a given node must be visited, can be inferred. A naive, greedy drone can therefore move to the neighboring node with the highest urgency rating, and choosing randomly between neighbors when some nodes are tied. This means that a drone’s movement is unpredictable, and seeing a drone above one intersection does not let a municipal employee infer the location of the rest of drones.
 
 \subsection{Performance}
 \label{sub:greey_performance}
-This strategy can tackle both density requirements. Figure~\ref{fig:random_uniform} shows
+This strategy can tackle both density requirements. Figure~\ref{fig:greedy_performance} show the performance of this strategy when the jaywalker density is uniform and when it is not, respectively. The vertical axis represents the mean number of nodes left unwatched for too long per moment in time over 10 simulations, and the horizontal axis represents the number of drones in flight during the simulations. There is a slight difference between Figure~\ref{fig:random_uniform} and Figure~\ref{fig:random_nonuniform} in that when the jaywalker density isn't uniform, more drones are required. This is most likely due to the fact that Gotham University and the Financial District need to be watched so often that any strategy would require more drones.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \center
 \begin{subfigure}[b]{0.5\textwidth}
   \center
