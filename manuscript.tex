@@ -94,6 +94,28 @@ One of the requirements of this strategy is that a global state accessible by al
 \label{sub:greedy_walk}
 As mentioned above, drones have access to the timestamp of the last visit for a given intersection, and the amount of time that can pass before said intersection needs to be watched again. As such, the ``urgency'', or how soon a given node must be visited, can be inferred. A naive, greedy drone can therefore move to the neighboring node with the highest urgency rating, and choosing randomly between neighbors when some nodes are tied. This means that a drone's movement is unpredictable, and seeing a drone above one intersection does not let a municipal employee infer the location of the rest of drones.
 
+\subsection{Performance}
+\label{sub:greey_performance}
+This strategy can tackle both density requirements. Figure~\ref{fig:random_uniform} shows
+
+\begin{figure}[h!]
+\center
+\begin{subfigure}[b]{0.5\textwidth}
+  \center
+  \includegraphics[width=\textwidth]{figures/random_walk_part1-crop.pdf}
+  \caption{Uniform jaywalker density}
+  \label{fig:random_uniform}
+\end{subfigure}~
+\begin{subfigure}[b]{0.5\textwidth}
+  \center
+  \includegraphics[width=\textwidth]{figures/random_walk_part3-crop.pdf}
+  \caption{Non-uniform jaywalker density}
+  \label{fig:random_nonuniform}
+\end{subfigure}
+\caption{Performance of Greedy Random Walk}
+\label{fig:greedy_performance}
+\end{figure}
+
 \section{Conclusion}
 \label{sec:conclusion}
 
