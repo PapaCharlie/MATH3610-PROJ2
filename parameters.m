@@ -2,6 +2,7 @@ global ticks_per_minute;
 global speed;
 global fuel_range;
 global refuel_time;
+global sight_radius;
 global xdim;
 global ydim;
 global visit_interval;
@@ -20,8 +21,9 @@ fuel_range = ticks_per_minute * 60 * 5 * speed; % in blocks
 
 refuel_time = ticks_per_minute * 60 * 5; % hours
 
-xdim = 30;
-ydim = 250;
+sight_radius = 1;
+xdim = ceil(30 / sight_radius);
+ydim = ceil(250 / sight_radius);
 
 visit_interval = ones(xdim,ydim);
 visit_interval(:,:) = 15;
