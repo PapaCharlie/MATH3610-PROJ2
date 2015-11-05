@@ -133,7 +133,7 @@ The blocking method can be extended to the case where some areas must be observe
     \label{blocking2}
 \end{figure}
 
-In this model (Central Park is visited every 20 minutes, and the financial district and Gotham University [which we modeled as Columbia University] every 5, we got 63 for the number of drones.
+In this model (Central Park is visited every 20 minutes, and the financial district and Gotham University [which we modeled as Columbia University] every 5, and each drone can traverse 10 grid points per minute) we get 63 for the number of drones.
 
 % Paul's stuff n' things
 \section{Greedy Random Walk}
@@ -175,8 +175,9 @@ Another randomized strategy is to divide Manhattan into rectangular blocks as be
 
 \section{Conclusion}
 \label{sec:conclusion}
-\par In conclusion, both the Block Model and the Optimal Path model seem to agree on the fact that one would need at least 50 drones to optimally cover Manhattan/Gotham City. Unfortunately, those drones have infinite fuel, therefore the true solution needs to be adjusted according to the ratio of the drones' flight time to their recharge time; but this can be done without changing the strategy itself, just the timing of the drones' deployment. If we wanted to assuage the fears of some of the troublemakers, then we we would need at least 75 drones to properly cover 90\% of Manhattan. Thankfully, given that this is Gotham City, 50 to 100 drones seems quite cheap.
-\par One thing that we did not take into account is the fact that close to 100 years from now, Manhattan's east side will suffer from a little flooding, therefore our representation of Manhattan may not quite be spot on. Similarly, some avenues, like Broadway, which cut across Manhattan diagonally were not modeled. A more rigorous strategy would also try to include these types of streets, and would certainly include the fact that the number of jaywalkers varies with the time of day. For example, there will be very few jaywalkers in the Financial District near 3a.m., while there will be quite a few more during lunchtime.
+\par In conclusion, both the Block Model and the Optimal Path model seem to agree on the fact that one would need 50 drones to optimally cover Manhattan/Gotham City, with the realistic parameters that we have chosen. Unfortunately, this assumes that those drones have infinite fuel; therefore, the true solution needs to be adjusted according to the ratio of the drones' flight time to their recharge time. This can be done without changing the strategy itself, just the timing of the drones' deployment. If we wanted to assuage the fears of some of the troublemakers, then we we would need at least 75 drones to properly cover 90\% of Manhattan. Thankfully, given that this is Gotham City, 50 to 100 drones seems quite cheap.
+
+\par One thing that we did not take into account is the fact that close to 100 years from now, Manhattan's east side will suffer from a little flooding, therefore our representation of Manhattan may not quite be spot on. Similarly, some avenues, like Broadway, which cut across Manhattan diagonally were not modeled. A more rigorous strategy would also try to include these types of streets, and would certainly include the fact that the number of jaywalkers varies with the time of day. For example, there will be very few jaywalkers in the Financial District near 3 a.m., while there will be quite a few more during lunchtime.
 
 \section{Appendix}
 \label{sec:appendix}
