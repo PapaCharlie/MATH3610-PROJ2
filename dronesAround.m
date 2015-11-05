@@ -9,7 +9,7 @@ function answer = dronesAround(region, boundary, t_region, t_outside)
     boundary_e = boundary(3);
     boundary_w = boundary(4);
     
-    region_drones = thing(region_s - region_n + 1, region_w - region_e + 1, t_region);
+    region_drones = block(region_s - region_n + 1, region_w - region_e + 1, t_region);
     d1 = region_w - region_e + 1;
     d2 = region_w - boundary_e;
     d3 = boundary_w - region_e;
@@ -21,28 +21,28 @@ function answer = dronesAround(region, boundary, t_region, t_outside)
     e4 = boundary_s - boundary_n - 1;
 
     % north rectangle
-    n1 = thing(d1,         region_n - boundary_n - 1,      t_outside); % between e and w
-    n2 = thing(d2,         region_n - boundary_n - 1,      t_outside); % up to w
-    n3 = thing(d3,         region_n - boundary_n - 1,      t_outside); % from e on
-    n4 = thing(d4,         region_n - boundary_n - 1,      t_outside); % entire
+    n1 = block(d1,         region_n - boundary_n - 1,      t_outside); % between e and w
+    n2 = block(d2,         region_n - boundary_n - 1,      t_outside); % up to w
+    n3 = block(d3,         region_n - boundary_n - 1,      t_outside); % from e on
+    n4 = block(d4,         region_n - boundary_n - 1,      t_outside); % entire
 
     % south rectangle
-    s1 = thing(d1,         boundary_s - region_s - 1,  t_outside);
-    s2 = thing(d2,         boundary_s - region_s - 1,  t_outside);
-    s3 = thing(d3,         boundary_s - region_s - 1,  t_outside);
-    s4 = thing(d4,         boundary_s - region_s - 1,  t_outside);
+    s1 = block(d1,         boundary_s - region_s - 1,  t_outside);
+    s2 = block(d2,         boundary_s - region_s - 1,  t_outside);
+    s3 = block(d3,         boundary_s - region_s - 1,  t_outside);
+    s4 = block(d4,         boundary_s - region_s - 1,  t_outside);
 
     % left rectangle
-    l1 = thing(region_e - boundary_e - 1,  e1,         t_outside); % between n and s
-    l2 = thing(region_e - boundary_e - 1,  e2,         t_outside); % up to s
-    l3 = thing(region_e - boundary_e - 1,  e3,         t_outside); % from n on
-    l4 = thing(region_e - boundary_e - 1,  e4,         t_outside); % entire
+    l1 = block(region_e - boundary_e - 1,  e1,         t_outside); % between n and s
+    l2 = block(region_e - boundary_e - 1,  e2,         t_outside); % up to s
+    l3 = block(region_e - boundary_e - 1,  e3,         t_outside); % from n on
+    l4 = block(region_e - boundary_e - 1,  e4,         t_outside); % entire
 
     % right rectangle
-    r1 = thing(boundary_w - region_w - 1,  e1,         t_outside);
-    r2 = thing(boundary_w - region_w - 1,  e2,         t_outside);
-    r3 = thing(boundary_w - region_w - 1,  e3,         t_outside);
-    r4 = thing(boundary_w - region_w - 1,  e4,         t_outside);
+    r1 = block(boundary_w - region_w - 1,  e1,         t_outside);
+    r2 = block(boundary_w - region_w - 1,  e2,         t_outside);
+    r3 = block(boundary_w - region_w - 1,  e3,         t_outside);
+    r4 = block(boundary_w - region_w - 1,  e4,         t_outside);
 
     % top between e and w
     x1 =  n1 + l2 + r2 + s4; % bottom entire after fin_w
@@ -74,7 +74,7 @@ function answer = dronesAround(region, boundary, t_region, t_outside)
     
     answer = outside_drones + region_drones;
     
-    whole = thing(boundary_s - boundary_n - 1, boundary_w - boundary_e - 1, min(t_region, t_outside));
+    whole = block(boundary_s - boundary_n - 1, boundary_w - boundary_e - 1, min(t_region, t_outside));
         
     answer = min(answer, whole);
 end

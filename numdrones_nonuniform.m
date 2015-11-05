@@ -1,28 +1,29 @@
-m = 20;
-n = 150;
-t = 15;
+parameters
+
+m = xdim;
+n = ydim;
+tfac = 10;
+t = 15*tfac;
 t_outside = t;
-t_cpk = 20;
-t_fin = 5;
+t_cpk = 20*tfac;
+t_fin = 5*tfac;
+t_univ = 5*tfac;
 
-cpk_n = floor(0.3 * ydim);
-cpk_s = floor(0.7 * ydim);
-cpk_e = floor(0.4 * xdim);
-cpk_w = floor(0.6 * xdim);
+cpk_n = 59;
+cpk_s = 110;
+cpk_e = 10;
+cpk_w = 19;
 
-fin_w = floor(0.1 * xdim);
-fin_drones = thing(fin_w, n, t_fin);
+fin_n = 20;
+fin_drones = block(m, fin_n, t_fin);
 
-univ_n = floor(0.1 * ydim);
-univ_s = floor(0.2 * ydim);
-univ_e = floor(0.6 * xdim);
-univ_w = floor(0.7 * xdim);
-t_univ = 5;
+univ_n = 1;
+univ_s = 6;
+univ_e = 110;
+univ_w = 122;
 
-%                   -------
-%                   |     |
-%                   |     |
-%  cpk_e      cpk_w -------
+%
+%  cpk_e      cpk_w 
 %    |          |    
 % --------------------
 % |                  |
@@ -35,9 +36,8 @@ t_univ = 5;
 % |                  |
 % --------------------
 
-
-min_drones = thing(m - fin_w, n, min([t_univ, t_fin, t_outside]));
-for i=univ_s:cpk_n
+min_drones = block(m, n - fin_n, min(t_univ, t_outside));
+for i=univ_s:(cpk_n+1)
     region_n = univ_n;
     region_s = univ_s;
     region_e = univ_e;
@@ -45,7 +45,7 @@ for i=univ_s:cpk_n
     
     boundary_n = 0;
     boundary_s = i;
-    boundary_e = fin_w;
+    boundary_e = 0;
     boundary_w = m + 1;
     
     region = [region_n region_s region_e region_w];
@@ -58,9 +58,9 @@ for i=univ_s:cpk_n
     region_e = cpk_e;
     region_w = cpk_w;
     
-    boundary_n = i;
-    boundary_s = n + 1;
-    boundary_e = fin_w;
+    boundary_n = i-1;
+    boundary_s = fin_w;
+    boundary_e = 0;
     boundary_w = m + 1;
     
     region = [region_n region_s region_e region_w];
@@ -71,4 +71,6 @@ for i=univ_s:cpk_n
     min_drones = min(univ_drones + cpk_drones, min_drones);
 end
 
-answer
+min_drones = min(min_drones + fin_drones, block(m, n, min([t_univ, t_fin, t_outside])));
+
+answer = min_drones
