@@ -164,8 +164,7 @@ This strategy can tackle both density requirements. Figure~\ref{fig:greedy_perfo
 
 \section{Conclusion}
 \label{sec:conclusion}
-In conclusion, it seems that one would need at least 50 drones to optimally cover Manhattan/Gotham City. Unfortunately, those drones have infinite fuel, therefore the true solution needs to be adjusted according to the ratio of the drones' flight time and their recharge time.
-
+In conclusion, both the Block Model and the Optimal Path model seem to agree on the fact that one would need at least 50 drones to optimally cover Manhattan/Gotham City. Unfortunately, those drones have infinite fuel, therefore the true solution needs to be adjusted according to the ratio of the drones' flight time to their recharge time; but this can be done without changing the strategy itself, just the timing of the drones' deployment. If we wanted to assuage the fears of some of the troublemakers, then we we would need at least 75 drones to properly cover 90\% of Manhattan. Thankfully, given that this is Gotham City, 75 to 100 drones seems quite cheap. One thing that we did not take into account is the fact that close to 100 years from now, Manhattan's east side will suffer from a little flooding, therefore our representation of Manhattan may not quite be spot on. Similarly, some avenues, like Broadway, which cut across Manhattan diagonally were not modeled by this. A more rigorous strategy would also try to include these types of streets, and would certainly include the fact that the number of jaywalkers varies with the time of day. For example, there will be very few jaywalkers in the Financial District near 3a.m., while there will be quite a few more during lunchtime.
 
 \section{Appendix}
 \label{sec:appendix}
@@ -190,5 +189,13 @@ In conclusion, it seems that one would need at least 50 drones to optimally cove
     \url{http://www.npr.org/sections/thetwo-way/2015/02/15/386464188/commercial-drone-rules-to-limit-their-speed-and-altitude}
 \end{thebibliography}
 
+\section{Contributions}
+\label{sec:contributions}
+\begin{description}
+  \item[Paul] Paul did the Greedy Walk strategy, and wrote up the assumptions and simplifications and their respective justifications.
+  \item[Nimit] Nimit did the Block model.
+  \item[Matt] Matt did the Optimal Path Model/Contingency plan and wrote the abstract.
+\end{description}
+All in all, we feel like we all did an equal amount of work and were quite satisfied with each other's performance.
 
 \end{document}
