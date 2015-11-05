@@ -1,6 +1,7 @@
 m = 20;
 n = 150;
 t = 15;
+t_outside = t;
 t_cpk = 20;
 t_fin = 5;
 
@@ -12,8 +13,11 @@ cpk_w = floor(0.6 * xdim);
 fin_w = floor(0.1 * xdim);
 fin_drones = thing(fin_w, n, t_fin);
 
-g_n = floor(0.1 * ydim);
-g_s = floor(0.2 * ydim);
+univ_n = floor(0.1 * ydim);
+univ_s = floor(0.2 * ydim);
+univ_e = floor(0.6 * xdim);
+univ_w = floor(0.7 * xdim);
+t_univ = 5;
 
 %                   -------
 %                   |     |
