@@ -43,6 +43,13 @@ for num_mavs = 1:max_mavs
 end
 save 'mean_per_drone_part1.mat' mean_per_drone
 
+plot(mean_per_drone, 'LineWidth', 2)
+% title('Percent of Poorly Monitored Zones vs Number of MAVs (uniform urgency)', 'Units', 'normalized', 'Position', [1 1])
+title 'Percent of Poorly Monitored Zones vs Number of MAVs (uniform urgency)'
+xlabel 'Number of MAVs'
+ylabel 'Poorly Monitored Zones (%)'
+saveas(gca, 'random_walk_part1.pdf')
+
 visit_interval = ones(xdim,ydim);
 visit_interval(:,:) = 15;
 % Set Central Park
@@ -81,3 +88,9 @@ for num_mavs = 1:max_mavs
   mean_per_drone(num_mavs) = mean(unwatched_zones_per_minute(unwatched_zones_per_minute > 0));
 end
 save 'mean_per_drone_part3.mat' mean_per_drone
+
+plot(mean_per_drone, 'LineWidth', 2)
+title 'Percent of Poorly Monitored Zones vs Number of MAVs (non-uniform urgency)'
+xlabel 'Number of MAVs'
+ylabel 'Poorly Monitored Zones (%)'
+saveas(gca, 'random_walk_part3.pdf')
