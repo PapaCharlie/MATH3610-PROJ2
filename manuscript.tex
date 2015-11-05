@@ -112,11 +112,21 @@ The block model assumes that an approximation to the optimal number of drones ca
 
 To do this, we first need to determine how long it takes for a single drone to survey a rectangular block of dimension m by n. However, we also note that for the drone to survey a collection of points every $x$ minutes, it is not enough to simply visit all of the points within $x$ minutes, it must also \textit{return to the starting point} within $x$ minutes, otherwise the starting point will go more than $x$ minutes without being visited.
 
-To simplify things, select some time step such that the drone can survey exactly one grid point per time step. Then, if either $m$ or $n$ is even, the amount of time it takes is just $m*n$. Proof: The proof is visual
+To simplify things, select some time step such that the drone can survey exactly one grid point per time step. Then, if either $m$ or $n$ is even, the amount of time it takes is just $m*n$. Proof: See Figure \ref{path} in section 4, and note that the number of "zigzags" is even and the path does not cross over itself. However, if neither is even, we may not be able to traverse the rectangle and return to the starting position in $m*n$ steps. Instead, we can traverse the rectangle in a similar zigzag pattern (with the long edge of the zigzags perpendicular to the longer edge of the rectangle), and then at the end of the last zigzag (which will end in the middle of the rectangle instead of at the starting corner), move towards the starting corner, which will take $min(m,n) - 1$ time (see Figure \ref{path2}). The exception to both cases is if either $m$ or $n$ is 1. Assume WLOG that $m = 1$; in this case, it will take $2n - 1$ time to traverse all the grid points and return to the starting position, since once we traverse all the grid points (say, from "left to right"), which takes $n - 1$ steps, we will have to retrace our steps, which takes $n-1$ more steps.
+
+\begin{figure}[htb!]
+    \centering{{\includegraphics[width=7cm]{figures/odd_path.pdf} }}
+    \caption{The shape of a path in a rectangle with an odd height and odd width. The path begins in the top right corner and goes to the left, and reverses directions from downward to upward when it gets to the bottom right corner.}
+    \label{path2}
+\end{figure}
+
+Using this formula, we are ready to find the optimal arrangement of rectangular blocks that covers Manhattan while using the fewest drones.
 
 For example, when we model Manhattan as a 30 by 250 grid, and if we assume that each drone can survey one grid point per minute, then the algorithm tells us that the "main" tiling will be 7 by 2 blocks. So, a contiguous 28 by 250 area (without loss of generality, we can assume it is in the upper left corner) will be covered with a 4 by 125 tiling of rectangular blocks. Then, there is a 2 by 250 area remaining. This area will be tiled with 35 2 by 7 blocks. Finally, there will be a 2 by 5 block left over. This block is small enough for one drone to survey in one minute. Therefore, the total number of blocks is $4*125 + 35 + 1 = 500 + 36 = 536$ blocks, and so 536 drones.
 
 If we assume each drone can survey ten grid points per minute, then we get that the main tiling will be a 10 by 5 tiling of 3 by 50 blocks. There is no space left over (every grid point is covered by some block), so the total number of drones is just 50.
+
+This method can be extended to the case where some areas must be observed more often than others. We can just assume that these areas are rectangular (which is a fairly good assumption in this case) and treat these areas as separate blocks.
 
 % Paul's stuff n' things
 \section{Greedy Random Walk}
