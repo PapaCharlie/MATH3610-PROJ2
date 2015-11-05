@@ -21,10 +21,10 @@ function answer = dronesAround(region, boundary, t_region, t_outside)
     e4 = boundary_s - boundary_n - 1;
 
     % north rectangle
-    n1 = thing(d1,         region_n - boundary_n,      t_outside); % between e and w
-    n2 = thing(d2,         region_n - boundary_n,      t_outside); % up to w
-    n3 = thing(d3,         region_n - boundary_n,      t_outside); % from e on
-    n4 = thing(d4,         region_n - boundary_n,      t_outside); % entire
+    n1 = thing(d1,         region_n - boundary_n - 1,      t_outside); % between e and w
+    n2 = thing(d2,         region_n - boundary_n - 1,      t_outside); % up to w
+    n3 = thing(d3,         region_n - boundary_n - 1,      t_outside); % from e on
+    n4 = thing(d4,         region_n - boundary_n - 1,      t_outside); % entire
 
     % south rectangle
     s1 = thing(d1,         boundary_s - region_s - 1,  t_outside);
