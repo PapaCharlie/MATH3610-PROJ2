@@ -44,7 +44,7 @@ emphstyle=[1]\color{red},literate={~} {\texttildelow}{1}}
 
 \section{Abstract}
 \label{sec:abstract}
-
+Several models were developed to facilitate the perpetual surveillance of Gotham City using . These models account
 
 \section{General Assumptions}
 \label{sec:general_assumptions}
@@ -77,46 +77,46 @@ Another consideration for this summation may be that the drones can only be laun
 \section{Optimal Path Model / Contingency Plan}
 \label{sec:optimal_path_model}
 
-\indent \indent The two contingencies that we must account for are the fuel penalty applied when drones make sharp turns, and the possibility that drones may be grounded for repairs. In order to ensure that every location is periodically observed without reprogramming the drones, the drones must all follow the same path and be equally spaced. The path that accomplishes this and minimizes the total number of turns is similar to the one shown in Figure \ref{path}.
+The two contingencies that we must account for are the fuel penalty applied when drones make sharp turns, and the possibility that drones may be grounded for repairs. In order to ensure that every location is periodically observed without reprogramming the drones, the drones must all follow the same path and be equally spaced. The path that accomplishes this and minimizes the total number of turns is similar to the one shown in Figure \ref{path}.
 \begin{figure}[htb!]
-    \centering]{{\includegraphics[width=7cm]{figures/optimal_path.pdf} }}%
+    \centering{{\includegraphics[width=7cm]{figures/optimal_path.pdf} }}
     \caption{The shape of the path with the minimum number of turns that visits every area of the city.}
     \label{path}
 \end{figure}
-\newline\indent In our case Manhattan is modeled as being $30\times 250$ blocks. The similar path for this layout has 60 turns and a total path length of 7500 blocks ($\sim 250$ miles). If the speed of each drone is 30 mph then each drone can fly 3000 blocks before having to refuel if we do not account for turning penalties. Since we were not given a specific parameter for drone refueling rates, need to create a flexible model that describes the refueling rates effects on the number of drones required.
+\newline In our case Manhattan is modeled as being $30\times 250$ blocks. The similar path for this layout has 60 turns and a total path length of 7500 blocks ($\sim 250$ miles). If the speed of each drone is 30 mph then each drone can fly 3000 blocks before having to refuel if we do not account for turning penalties. Since we were not given a specific parameter for drone refueling rates, need to create a flexible model that describes the refueling rates effects on the number of drones required.
 \begin{eqnarray}
 N \geq \frac{R n_{c}}{T}\label{backup drones}
 \end{eqnarray}
 Equation \ref{backup drones} describes the number of extra drones needed ($N$) as a function of the refueling time $R$ ($n_{c}$ and $T$ are the number of currently deployed drones and their fuel capacity in hours respectively). We can see from this equation that if the refueling time equals the length of time for which drones can fly, then $N = n_{c}$.  So we would need a total of $2n_{c}$ drones as expected.
 This means that in the worst case we need to have an additional supply of available drones equal to the number of operating drones that can be deployed when fuel is depleted. This also assumes that refueling the drones takes less than 5 hours.
-\newline\indent If the drones are equally spaced, then the distance between them in blocks is simply $L/n_{c}$ where $L$ is the total path length (7500 blocks). By setting the maximum time interval $t$ to 15 min in Equation \ref{max time interval} we can solve for the minimum number of drones required given that the drones travel at a rate $R = 10$ blocks/minute (30mph). Our representation of the city requires $n_{c} = 50$ for a maximum unobserved interval of 15 minutes.
+\newline If the drones are equally spaced, then the distance between them in blocks is simply $L/n_{c}$ where $L$ is the total path length (7500 blocks). By setting the maximum time interval $t$ to 15 min in Equation \ref{max time interval} we can solve for the minimum number of drones required given that the drones travel at a rate $R = 10$ blocks/minute (30mph). Our representation of the city requires $n_{c} = 50$ for a maximum unobserved interval of 15 minutes.
 \begin{eqnarray}
 t = \frac{L}{n_{c}R} \label{max time interval}
 \end{eqnarray}
-\newline\indent Now we account for the possibility that drones can break down and be grounded for repairs. We analyze the effect of at most 30\% becoming unusable. We assume that if a drone fails then the currently operating drones spread out evenly over the entire path to keep visit intervals at a minimum. Figure \ref{failed} shows the maximum unobserved time interval given drone failings ranging from 0 to 30\%. If 30\% fail then the maximum interval is increased to 21.12 minutes.
+\newline Now we account for the possibility that drones can break down and be grounded for repairs. We analyze the effect of at most 30\% becoming unusable. We assume that if a drone fails then the currently operating drones spread out evenly over the entire path to keep visit intervals at a minimum. Figure \ref{failed} shows the maximum unobserved time interval given drone failings ranging from 0 to 30\%. If 30\% fail then the maximum interval is increased to 21.12 minutes.
 \begin{figure}[htb!]
-    \centering]{{\includegraphics[width=7cm]{figures/failed_drones.pdf} }}%
-    \caption{Drone failings effect on maximum visit interval}
+    \centering{{\includegraphics[width=7cm]{figures/failed_drones-crop.pdf} }}
+    \caption{Drone failure effects on maximum visit interval}
    \label{failed}
 \end{figure}
 If it is extremely important to keep the interval at 15 minutes, then the city will need to keep extra reserve drones to deploy when drones need repair. This number would be equal to $.3n_{c} = 15$ backup drones.
 \begin{eqnarray}
 Total MAVs = Deployed + Backup Fuel + Backup Repair \label{totaldrones}
 \end{eqnarray}
-\indent If this plan is implemented then the total number of drones that the city needs to adequately observe all areas is described by Equation \ref{totaldrones}. The worst case would be if refuel times were long and it was mandatory to keep all visit intervals within 15 min. This would require 50 drones to be deployed at all times, 50 should be readily available to deploy when operating drones run out of fuel, and 15 should be readily available to replace any broken drones. This gives us a total of 115 drones. This solution yields a density of 6.13 drones per square mile. The best case scenario would take the refuel times to be negligible and a more flexible tolerance for maximum visit intervals. This case would not require any backup drones for refueling or failures and the resulting an optimal value of 50 total drones (2.67 drones per square mile). The true solution will therefore lie in the range of 50 - 115 drones and depend on the real constraints of the situation subject to the methods we have developed.
+If this plan is implemented then the total number of drones that the city needs to adequately observe all areas is described by Equation \ref{totaldrones}. The worst case would be if refuel times were long and it was mandatory to keep all visit intervals within 15 min. This would require 50 drones to be deployed at all times, 50 should be readily available to deploy when operating drones run out of fuel, and 15 should be readily available to replace any broken drones. This gives us a total of 115 drones. This solution yields a density of 6.13 drones per square mile. The best case scenario would take the refuel times to be negligible and a more flexible tolerance for maximum visit intervals. This case would not require any backup drones for refueling or failures and the resulting an optimal value of 50 total drones (2.67 drones per square mile). The true solution will therefore lie in the range of 50 - 115 drones and depend on the real constraints of the situation subject to the methods we have developed.
 
 % Nimit's stuff and things
 \section{Block Model}
 \label{sec:block_model}
-The block model assumes that an approximation to the optimal number of drones can be achieved by splitting up Manhattan into rectangular blocks, each of which is assigned a drone to cover that area. The rectangles must therefore be small enough so that the drones can cover them in 15 minutes. Our algorithm iterates through all pairs of rectangle dimensions that are small enough for a single drone to cover in 15 minutes, and tiles Manhattan with these rectangles. If the dimension of Manhattan is not divisible by the rectangle dimension, we take the "leftover" area that is not covered by any rectangle and pass that area back into a recursive call to the algorithm (it may be tiled with different-sized rectangles). Finally, we select the tiling arrangement that covers Manhattan with the least number of blocks, and therefore the fewest drones.
+The block model assumes that an approximation to the optimal number of drones can be achieved by splitting up Manhattan into non-overlapping rectangular blocks, each of which is assigned a drone to cover that area. The rectangles must therefore be small enough so that the drones can cover them in 15 minutes. Our algorithm iterates through all pairs of rectangle dimensions that are small enough for a single drone to cover in 15 minutes, and tiles Manhattan with these rectangles. If the dimension of Manhattan is not divisible by the rectangle dimension, we take the "leftover" area that is not covered by any rectangle and pass that area back into a recursive call to the algorithm (it may be tiled with different-sized rectangles). Finally, we select the tiling arrangement that covers Manhattan with the least number of blocks, and therefore the fewest drones.
 
-There is. If the is divisible
+To do this, we first need to determine how long it takes for a single drone to survey a rectangular block of dimension m by n. However, we also note that for the drone to survey a collection of points every $x$ minutes, it is not enough to simply visit all of the points within $x$ minutes, it must also \textit{return to the starting point} within $x$ minutes, otherwise the starting point will go more than $x$ minutes without being visited.
+
+To simplify things, select some time step such that the drone can survey exactly one grid point per time step. Then, if either $m$ or $n$ is even, the amount of time it takes is just $m*n$. Proof: The proof is visual
 
 For example, when we model Manhattan as a 30 by 250 grid, and if we assume that each drone can survey one grid point per minute, then the algorithm tells us that the "main" tiling will be 7 by 2 blocks. So, a contiguous 28 by 250 area (without loss of generality, we can assume it is in the upper left corner) will be covered with a 4 by 125 tiling of rectangular blocks. Then, there is a 2 by 250 area remaining. This area will be tiled with 35 2 by 7 blocks. Finally, there will be a 2 by 5 block left over. This block is small enough for one drone to survey in one minute. Therefore, the total number of blocks is $4*125 + 35 + 1 = 500 + 36 = 536$ blocks, and so 536 drones.
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
+If we assume each drone can survey ten grid points per minute, then we get that the main tiling will be a 10 by 5 tiling of 3 by 50 blocks. There is no space left over (every grid point is covered by some block), so the total number of drones is just 50.
 
 % Paul's stuff n' things
 \section{Greedy Random Walk}
