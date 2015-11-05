@@ -126,7 +126,15 @@ For example, when we model Manhattan as a 30 by 250 grid, and if we assume that 
 
 If we assume each drone can survey ten grid points per minute, then we get that the main tiling will be a 10 by 5 tiling of 3 by 50 blocks. There is no space left over (every grid point is covered by some block), so the total number of drones is just 50.
 
-This method can be extended to the case where some areas must be observed more often than others. We can just assume that these areas are rectangular (which is a fairly good assumption in this case) and treat these areas as separate blocks.
+The blocking method can be extended to the case where some areas must be observed more often than others. We can just assume that these areas are rectangular (which is a fairly good assumption in this case) and treat these areas as separate blocks. We can use the previous algorithm to calculate how many drones the high- or low-surveillance blocks need. The areas of Manhattan without special surveillance requirements now form a rectangular region with rectangular "holes" in it. Therefore, we split this complicated region into a collection of rectangles that are as large as possible (see figure \ref{blocking2}, and then run the algorithm on each of these rectangles. There are multiple ways to do this, so we test each configuration to find which one requires the fewest total drones. Finally, we add the number of drones required to cover each rectangle to find the total number of drones required to survey Manhattan. Finally, we take the minimum of this number and the number of drones it would take if we just visited all regions as often as the most covered region needs.
+
+\begin{figure}[htb!]
+    \centering{{\includegraphics[width=8cm]{figures/blocking.pdf} }}
+    \caption{Different ways to divide Manhattan into rectangular blocks; in this simplified diagram, the middle (red) region is Central Park, and the other (yellow) regions are the rest of Manhattan.}
+    \label{blocking2}
+\end{figure}
+
+In this model (Central Park is visited every 20 minutes, and the financial district and Gotham University [which we modeled as Columbia University] every 5, we got 63 for the number of drones.
 
 % Paul's stuff n' things
 \section{Greedy Random Walk}
